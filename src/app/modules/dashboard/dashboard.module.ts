@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './pages/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardRoutingModule } from './dashboard.routing';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -15,6 +16,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    RouterModule,
     SharedModule
   ],
   exports: [

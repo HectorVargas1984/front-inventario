@@ -10,7 +10,25 @@ export class SidenavComponent {
 
   mobileQuery: MediaQueryList;
 
-  constructor(media:MediaMatcher){
+  menuNav = [
+    {
+      name: 'home',
+      router: 'home',
+      icon: 'home'
+    },
+    {
+      name: 'Categorias',
+      router: 'category',
+      icon: 'category'
+    },
+    {
+      name: 'Productos',
+      router: 'product',
+      icon: 'production_quantity_limits'
+    }
+  ]
+
+  constructor(media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
   }
 
