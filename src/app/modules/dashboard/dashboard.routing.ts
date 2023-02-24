@@ -5,8 +5,13 @@ import { DashboardComponent } from './pages/dashboard.component';
 
 const routes: Routes = [
 
-    { path: '', component: DashboardComponent },
-    { path: 'home', component: HomeComponent },
+    { path: '', component: DashboardComponent , 
+    children:[
+        { path: 'home', component: HomeComponent },
+    ]},
+    
+   
+    
 ];
 
 @NgModule({

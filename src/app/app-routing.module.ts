@@ -4,11 +4,12 @@ import { DashboardComponent } from './modules/dashboard/pages/dashboard.componen
 import { DashboardRoutingModule } from './modules/dashboard/dashboard.routing';
 
 const routes: Routes = [
+  
   {
     path: 'dashboard',
     loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
-  { path: '**', pathMatch: 'full', redirectTo: '/dashboard' }
+  
 ];
 
 @NgModule({
