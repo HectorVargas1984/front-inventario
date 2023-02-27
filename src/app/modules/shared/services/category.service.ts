@@ -29,7 +29,24 @@ export class CategoryService {
    * @returns objeto guardado
    */
   postSaveCategory(body: any) {
+
     const endpoint = `${this.url}categories`;
     return this.http.post(endpoint, body);
+
   }
+
+
+  /**
+   * Update Catgories
+   * @param body {name, categories}
+   * @param id id categories
+   * @returns  objeto modificado
+   */
+  putUpdateCategory(body: any, id: any) {
+
+    const endpoint = `${this.url}categories/${id}`
+    return this.http.put(endpoint, body);
+
+  }
+
 }
