@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryService } from '../../../shared/services/category.service';
 import { CategoryElement } from '../../../Interfaces/categoryDataSource';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalInscripcioCategoriasComponent } from './modal-inscripcio-categorias/modal-inscripcio-categorias.component';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-category',
@@ -14,7 +17,7 @@ export class CategoryComponent implements OnInit {
 
   dataSource = new MatTableDataSource<CategoryElement>();
 
-  constructor(private categoriesservices: CategoryService) { }
+  constructor(private categoriesservices: CategoryService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getCategories()
@@ -49,4 +52,28 @@ export class CategoryComponent implements OnInit {
     }
   }
 
+  openCategoryDialog() {
+    const dialogRef = this.dialog.open(ModalInscripcioCategoriasComponent, {
+      width: '450px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1) {
+        this.openSnackBar('Categoria Agregada', 'Exitosa'),
+          this.getCategories();
+      } else if (result == 2) {
+        this.openSnackBar('Error al guadar Categoria', 'Error')
+      }
+    });
+  }
+
+
+  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {
+    return this.snackBar.open(message, action, {
+      duration: 2000
+    })
+  }
+
 }
+
+
