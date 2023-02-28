@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from '../../../../shared/services/category.service';
+
+interface DataDialog{
+  id:number,
+  name:string,
+  description:string
+}
 
 @Component({
   selector: 'app-modal-inscripcio-categorias',
@@ -15,9 +21,18 @@ export class ModalInscripcioCategoriasComponent implements OnInit {
     description: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private CategoryService: CategoryService, private dialogRef: MatDialogRef<ModalInscripcioCategoriasComponent>) { }
+  constructor(
+    private fb: FormBuilder, 
+    private CategoryService: CategoryService, 
+    private dialogRef: MatDialogRef<ModalInscripcioCategoriasComponent>,
+    @Inject(MAT_DIALOG_DATA) public data:DataDialog
+    ) { }
 
   ngOnInit(): void {
+    console.log(this.data)
+    if(this.data){      
+      this.updateForm(this.data)
+    }
   }
 
   onSave() {
@@ -26,18 +41,31 @@ export class ModalInscripcioCategoriasComponent implements OnInit {
       description: this.categoryForm.get('description')?.value
     }
 
-    this.CategoryService.postSaveCategory(data)
+    if(this.data != null){
+      this.CategoryService.putUpdateCategory(data, this.data.id)
+      .subscribe(data=>{
+        this.dialogRef.close(1)
+      },(error: any) => {
+        this.dialogRef.close(2)
+      })
+    }else{
+      this.CategoryService.postSaveCategory(data)
       .subscribe(data => {
         console.log(data);
         this.dialogRef.close(1)
       }, (error: any) => {
         this.dialogRef.close(2)
       })
-
+    }    
   }
 
-  onCancel() {
-    this.dialogRef.close(3)
+  onCancel(): void{
+    this.dialogRef.close();
+  }
+
+  updateForm(data:DataDialog){    
+    this.categoryForm.controls['name']?.setValue(data.name);
+    this.categoryForm.controls['description']?.setValue(data.description);
   }
 
 }
