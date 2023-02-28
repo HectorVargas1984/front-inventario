@@ -5,6 +5,7 @@ import { CategoryElement } from '../../../Interfaces/categoryDataSource';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalInscripcioCategoriasComponent } from './modal-inscripcio-categorias/modal-inscripcio-categorias.component';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-category',
@@ -73,9 +74,9 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  edit(id: number, name: string, description: string){
+  edit(id: number, name: string, description: string) {
     const dialogRef = this.dialog.open(ModalInscripcioCategoriasComponent, {
-      width: '450px', data: {id, name, description}
+      width: '450px', data: { id, name, description }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -86,10 +87,22 @@ export class CategoryComponent implements OnInit {
         this.openSnackBar('Error al actualizar Categoria', 'Error')
       }
     });
-    
-
   }
 
+  delete(id: any) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '450px', data: { id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1) {
+        this.openSnackBar('Categoria Eliminada', 'Exitosa'),
+          this.getCategories();
+      } else if (result == 2) {
+        this.openSnackBar('Error al Eliminar Categoria', 'Error')
+      }
+    });
+  }
 }
 
 

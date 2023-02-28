@@ -11,7 +11,6 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-
   /**
    * solicita todas la categorias
    * @returns objetos de categorias
@@ -35,7 +34,6 @@ export class CategoryService {
 
   }
 
-
   /**
    * Update Catgories
    * @param body {name, categories}
@@ -46,6 +44,18 @@ export class CategoryService {
 
     const endpoint = `${this.url}categories/${id}`
     return this.http.put(endpoint, body);
+
+  }
+
+  /**
+   * Delete Category
+   * @param id 
+   * @returns 
+   */
+  deleteCategory(id: any) {
+
+    const endpoint = `${this.url}categories/${id}`
+    return this.http.delete(endpoint);
 
   }
 

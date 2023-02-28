@@ -28,15 +28,17 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button
-    mat-button
-    color="primary"
-    [disabled]="categoryForm.invalid"
-    (click)="onSave()"
-  >
-    <mat-icon>save</mat-icon> Guardar
-  </button>
-  <button mat-button color="warn" (click)="onCancel()">
-    <mat-icon>cancel</mat-icon> Cancelar
-  </button>
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+    <button
+      mat-button
+      color="primary"
+      [disabled]="categoryForm.invalid"
+      (click)="onSave()"
+    >
+      <mat-icon>save</mat-icon> Guardar
+    </button>
+    <button mat-button color="warn" (click)="onCancel()">
+      <mat-icon>cancel</mat-icon> Cancelar
+    </button>
+  </div>
 </mat-dialog-actions>
