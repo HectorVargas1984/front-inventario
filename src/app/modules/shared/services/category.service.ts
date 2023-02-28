@@ -23,6 +23,17 @@ export class CategoryService {
   }
 
   /**
+  * busca categoria por id
+  * @returns objetos de categorias
+  */
+  getCategoriesById(id: any) {
+
+    const endpoint = `${this.url}categories/${id}`;
+    return this.http.get(endpoint);
+
+  }
+
+  /**
    * Save the categories
    * @param body {name, categories}
    * @returns objeto guardado

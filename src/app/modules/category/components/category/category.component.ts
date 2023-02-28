@@ -103,6 +103,21 @@ export class CategoryComponent implements OnInit {
       }
     });
   }
+
+  buscarCategory(termino: string) {
+
+    if (termino.length === 0) {
+      return this.getCategories();
+    } else {
+      this.categoriesservices.getCategoriesById(termino)
+        .subscribe(r => {
+          this.processCategoriesResponse(r)
+        })
+    }
+
+  }
+
+
 }
 
 

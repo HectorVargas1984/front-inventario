@@ -4,7 +4,12 @@
     <div>
       <mat-form-field hintLabel="Busqueda de categoria" appearance="fill">
         <mat-label>Buscar Categorias</mat-label>
-        <input type="text" matInput #input />
+        <input
+          type="text"
+          matInput
+          #input
+          (keyup)="buscarCategory(input.value)"
+        />
       </mat-form-field>
     </div>
   </mat-card-header>
