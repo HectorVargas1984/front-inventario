@@ -12,7 +12,13 @@
     <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
       <ul fxLayout="row" fxLayoutGap="20px">
         <li>
-          <button mat-raised-button color="primary">Agregar Productos</button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="openProductDialog()"
+          >
+            Agregar Productos
+          </button>
         </li>
       </ul>
     </div>
@@ -21,7 +27,11 @@
   <div mat-card-image></div>
 
   <mat-card-content>
-    <table mat-table [dataSource]="dataSource" class="mat-cell">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-cell mat-elevation-z8"
+    >
       <!--Id Colum-->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>N°</th>
@@ -77,7 +87,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+
     <mat-paginator
+      class="mat-cell mat-elevation-z8"
       [pageSizeOptions]="[5, 10, 20]"
       showFirstLastButtons
     ></mat-paginator>

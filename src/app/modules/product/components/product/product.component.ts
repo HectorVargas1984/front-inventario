@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { ModalInscripcioCategoriasComponent } from 'src/app/modules/category/components/category/modal-inscripcio-categorias/modal-inscripcio-categorias.component';
 import { ProductElement } from '../../../Interfaces/productDataSource';
 import { ProductService } from '../../../shared/services/product.service';
+import { ModalIngresarProductComponent } from './modal-ingresar-product/modal-ingresar-product.component';
 
 @Component({
   selector: 'app-product',
@@ -17,7 +21,7 @@ export class ProductComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -49,6 +53,27 @@ export class ProductComponent implements OnInit {
       this.dataSource = new MatTableDataSource<ProductElement>(dataProduct);
       this.dataSource.paginator = this.paginator;
     }
+  }
+
+  openProductDialog() {
+    const dialogRef = this.dialog.open(ModalIngresarProductComponent, {
+      width: '450px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1) {
+        this.openSnackBar('Producto Agregada', 'Exitosa'),
+          this.getProducts();
+      } else if (result == 2) {
+        this.openSnackBar('Error al guadar Producto', 'Error')
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {
+    return this.snackBar.open(message, action, {
+      duration: 2000
+    })
   }
 
 }

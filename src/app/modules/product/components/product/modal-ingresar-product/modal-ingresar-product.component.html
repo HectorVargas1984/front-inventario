@@ -1,0 +1,71 @@
+<h2 mat-dialog-title *ngIf="!this.data">Agregar Nueva Producto</h2>
+<h2 mat-dialog-title *ngIf="this.data">Actualizar Producto</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="ProductForm">
+    <div class="category-container">
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Nombre"
+          required
+          formControlName="name"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          placeholder="Precio"
+          required
+          formControlName="price"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          placeholder="Cantidad"
+          required
+          formControlName="account"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Categoría</mat-label>
+        <mat-select formControlName="category">
+          <mat-option></mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          placeholder="Imagen"
+          required
+          formControlName="picture"
+        />
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+    <button
+      mat-button
+      color="primary"
+      [disabled]="ProductForm.invalid"
+      (click)="onSave()"
+    >
+      <mat-icon>save</mat-icon> Guardar
+    </button>
+    <button mat-button color="warn" (click)="onCancel()">
+      <mat-icon>cancel</mat-icon> Cancelar
+    </button>
+  </div>
+</mat-dialog-actions>
