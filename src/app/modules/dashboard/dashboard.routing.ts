@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './pages/dashboard.component';
 import { CategoryComponent } from '../category/components/category/category.component';
+import { ProductComponent } from '../product/components/product/product.component';
 
 const routes: Routes = [
 
@@ -11,6 +12,7 @@ const routes: Routes = [
         children: [
             { path: 'home', component: HomeComponent },
             { path: 'category', component: CategoryComponent },
+            { path: 'product', component: ProductComponent },
 
         ]
     },
