@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductService } from '../../../../shared/services/product.service';
+import { CategoryService } from '../../../../shared/services/category.service';
+import { CategoryElement } from 'src/app/modules/Interfaces/categoryDataSource';
 
 interface DataDialog {
   id: number;
@@ -19,6 +21,8 @@ interface DataDialog {
 })
 export class ModalIngresarProductComponent implements OnInit {
 
+  category: CategoryElement[] = []
+
   public ProductForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     price: ['', Validators.required],
@@ -30,6 +34,7 @@ export class ModalIngresarProductComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
+    private categoryService: CategoryService,
     private dialogRef: MatDialogRef<ModalIngresarProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DataDialog
   ) { }
@@ -39,6 +44,8 @@ export class ModalIngresarProductComponent implements OnInit {
     // if (this.data) {
     //   this.updateForm(this.data)
     // }
+
+    this.getCategory();
   }
 
   onSave() {
@@ -73,5 +80,22 @@ export class ModalIngresarProductComponent implements OnInit {
   //   this.categoryForm.controls['name']?.setValue(data.name);
   //   this.categoryForm.controls['description']?.setValue(data.description);
   // }
+
+  getCategory() {
+    this.categoryService.getCategories().subscribe(
+      (data: any) => {
+        console.log("data", data);
+        this.category = data.categoryResponse.category;
+        console.log("category", this.category);
+
+      }, (error: any) => {
+        console.error(error)
+      }
+    )
+  }
+
+  onFileChange(event: any) {
+
+  }
 
 }

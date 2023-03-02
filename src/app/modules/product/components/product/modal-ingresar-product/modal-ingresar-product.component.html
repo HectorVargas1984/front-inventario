@@ -37,19 +37,24 @@
       <mat-form-field>
         <mat-label>Categoría</mat-label>
         <mat-select formControlName="category">
-          <mat-option></mat-option>
+          <mat-option *ngFor="let cat of category" [value]="cat.id">
+            {{ cat.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
+      <div>
+        <mat-label>Imagenes: </mat-label>
+        <label class="subir" for="file-upload"> Subir Foto </label>
         <input
-          type="number"
-          matInput
-          placeholder="Imagen"
-          required
+          class="input-file"
+          id="file-upload"
+          accept="image/png, image/jpeg"
+          (change)="onFileChange($event)"
+          type="file"
           formControlName="picture"
         />
-      </mat-form-field>
+      </div>
     </div>
   </form>
 </mat-dialog-content>
