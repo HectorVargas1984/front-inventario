@@ -107,4 +107,22 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  buscarProduct(nombre: string) {
+
+    console.log(nombre);
+
+    if (nombre.length == 0) {
+      return this.getProducts()
+    }
+
+    this.productService.getProductByName(nombre)
+      .subscribe((resp: any) => {
+        this.processProductResponse(resp);
+      }, (error: any) => {
+        console.log("error", error);
+      })
+
+
+  }
+
 }

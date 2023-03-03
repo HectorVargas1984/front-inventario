@@ -54,4 +54,10 @@ export class ProductService {
 
   }
 
+
+  getProductByName(nombre: string) {
+    const endpoint = `${this.url}products/filter/${nombre}`
+    return this.http.get(endpoint)
+  }
+
 }
