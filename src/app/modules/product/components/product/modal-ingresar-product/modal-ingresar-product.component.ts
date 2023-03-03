@@ -22,7 +22,7 @@ interface DataDialog {
 export class ModalIngresarProductComponent implements OnInit {
   category: CategoryElement[] = [];
 
-  selectedFile: File | undefined;
+  selectedFile!: File;
   nameImg: string = '';
 
   public ProductForm: FormGroup = this.fb.group({
@@ -39,7 +39,7 @@ export class ModalIngresarProductComponent implements OnInit {
     private categoryService: CategoryService,
     private dialogRef: MatDialogRef<ModalIngresarProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DataDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     console.log(this.data);
@@ -53,9 +53,20 @@ export class ModalIngresarProductComponent implements OnInit {
   onSave() {
     let data = {
       name: this.ProductForm.get('name')?.value,
-      description: this.ProductForm.get('description')?.value,
+      price: this.ProductForm.get('price')?.value,
+      account: this.ProductForm.get('account')?.value,
+      category: this.ProductForm.get('category')?.value,
+      pricture: this.selectedFile,
     };
-    this.productService.postSaveProduct(data).subscribe(
+
+    const uploadImageData = new FormData();
+    uploadImageData.append('picture', data.pricture, data.pricture?.name);
+    uploadImageData.append('name', data.name);
+    uploadImageData.append('price', data.price);
+    uploadImageData.append('account', data.account);
+    uploadImageData.append('categoryId', data.category);
+
+    this.productService.postSaveProduct(uploadImageData).subscribe(
       (data) => {
         console.log(data);
         this.dialogRef.close(1);
@@ -100,7 +111,7 @@ export class ModalIngresarProductComponent implements OnInit {
 
   onFileChange(event: any) {
 
-    console.log('event',event)
+    console.log('event', event)
     this.selectedFile = event.target.files[0];
     console.log('file', this.selectedFile);
 

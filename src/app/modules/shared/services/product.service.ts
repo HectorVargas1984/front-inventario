@@ -21,7 +21,7 @@ export class ProductService {
 
   postSaveProduct(body: any) {
     const enpoint = `${this.url}products`
-    return this.http.post(this.url, body)
+    return this.http.post(enpoint, body)
   }
 
 }
