@@ -43,7 +43,7 @@
         </mat-select>
       </mat-form-field>
 
-      <div>
+      <div style="margin: 5px">
         <mat-label>Imagenes: </mat-label>
         <label class="subir" for="file-upload"> Subir Foto </label>
         <input
@@ -54,6 +54,7 @@
           type="file"
           formControlName="picture"
         />
+        <label>{{ nameImg }}</label>
       </div>
     </div>
   </form>

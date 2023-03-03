@@ -11,17 +11,19 @@ interface DataDialog {
   price: number;
   account: number;
   category: any;
-  picture: any
+  picture: any;
 }
 
 @Component({
   selector: 'app-modal-ingresar-product',
   templateUrl: './modal-ingresar-product.component.html',
-  styleUrls: ['./modal-ingresar-product.component.css']
+  styleUrls: ['./modal-ingresar-product.component.css'],
 })
 export class ModalIngresarProductComponent implements OnInit {
+  category: CategoryElement[] = [];
 
-  category: CategoryElement[] = []
+  selectedFile: File | undefined;
+  nameImg: string = '';
 
   public ProductForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
@@ -37,10 +39,10 @@ export class ModalIngresarProductComponent implements OnInit {
     private categoryService: CategoryService,
     private dialogRef: MatDialogRef<ModalIngresarProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DataDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.data)
+    console.log(this.data);
     // if (this.data) {
     //   this.updateForm(this.data)
     // }
@@ -51,15 +53,17 @@ export class ModalIngresarProductComponent implements OnInit {
   onSave() {
     let data = {
       name: this.ProductForm.get('name')?.value,
-      description: this.ProductForm.get('description')?.value
-    }
-    this.productService.postSaveProduct(data)
-      .subscribe(data => {
+      description: this.ProductForm.get('description')?.value,
+    };
+    this.productService.postSaveProduct(data).subscribe(
+      (data) => {
         console.log(data);
-        this.dialogRef.close(1)
-      }, (error: any) => {
-        this.dialogRef.close(2)
-      })
+        this.dialogRef.close(1);
+      },
+      (error: any) => {
+        this.dialogRef.close(2);
+      }
+    );
 
     // if (this.data != null) {
     //   this.CategoryService.putUpdateCategory(data, this.data.id)
@@ -84,18 +88,23 @@ export class ModalIngresarProductComponent implements OnInit {
   getCategory() {
     this.categoryService.getCategories().subscribe(
       (data: any) => {
-        console.log("data", data);
+        console.log('data', data);
         this.category = data.categoryResponse.category;
-        console.log("category", this.category);
-
-      }, (error: any) => {
-        console.error(error)
+        console.log('category', this.category);
+      },
+      (error: any) => {
+        console.error(error);
       }
-    )
+    );
   }
 
   onFileChange(event: any) {
 
-  }
+    console.log('event',event)
+    this.selectedFile = event.target.files[0];
+    console.log('file', this.selectedFile);
 
+    this.nameImg = event.target.files[0].name;
+    console.log('name', this.nameImg)
+  }
 }

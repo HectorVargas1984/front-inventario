@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { ModalInscripcioCategoriasComponent } from 'src/app/modules/category/components/category/modal-inscripcio-categorias/modal-inscripcio-categorias.component';
 import { ProductElement } from '../../../Interfaces/productDataSource';
 import { ProductService } from '../../../shared/services/product.service';
 import { ModalIngresarProductComponent } from './modal-ingresar-product/modal-ingresar-product.component';
