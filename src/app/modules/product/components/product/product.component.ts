@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit {
     if (resp.metadata[0].code == "00") {
       let listCProduct = resp.productResponse.products;
       listCProduct.forEach((element: ProductElement) => {
-        element.category = element.category.name
+        element.category = element.category
         element.picture = `data:image/jpeg;base64,${element.picture}`
         dataProduct.push(element)
       });
@@ -73,6 +73,21 @@ export class ProductComponent implements OnInit {
     return this.snackBar.open(message, action, {
       duration: 2000
     })
+  }
+
+  edit(id: number, name: string, price: number, account: number, category: string) {
+    const dialogRef = this.dialog.open(ModalIngresarProductComponent, {
+      width: '450px', data: { id, name, price, account, category }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 1) {
+        this.openSnackBar('Categoria Actualizada', 'Exitosa'),
+          this.getProducts();
+      } else if (result == 2) {
+        this.openSnackBar('Error al actualizar Categoria', 'Error')
+      }
+    });
   }
 
 }

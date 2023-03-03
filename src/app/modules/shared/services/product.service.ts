@@ -19,9 +19,21 @@ export class ProductService {
     return this.http.get(enpoint);
   }
 
+  /**
+   * Save teh product
+   * @param body 
+   * @returns 
+   */
   postSaveProduct(body: any) {
+
+    console.log("datebody", body);
     const enpoint = `${this.url}products`
     return this.http.post(enpoint, body)
+  }
+
+  UpdateProduct(body: any, id: any) {
+    const enpoint = `${this.url}products/${id}`
+    return this.http.put(enpoint, body)
   }
 
 }
