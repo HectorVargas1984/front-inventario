@@ -31,9 +31,27 @@ export class ProductService {
     return this.http.post(enpoint, body)
   }
 
+  /**
+   * Update Product
+   * @param body 
+   * @param id 
+   * @returns 
+   */
   UpdateProduct(body: any, id: any) {
     const enpoint = `${this.url}products/${id}`
     return this.http.put(enpoint, body)
+  }
+
+  /**
+   * Delete product
+   * @param id 
+   * @returns 
+   */
+  deleteProduct(id: any) {
+
+    const endpoint = `${this.url}products/${id}`
+    return this.http.delete(endpoint);
+
   }
 
 }
